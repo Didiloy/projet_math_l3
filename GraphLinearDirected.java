@@ -90,27 +90,8 @@ public class GraphLinearDirected extends GraphLinear{
         return g;
     }
 
-    public void outputAdjacencyMatrix(PrintStream output){
-        output.println(this.adjacencyMatrix.length);
-        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
-            for (int j = 0; j < this.adjacencyMatrix[0].length; j++) {
-                output.print(this.adjacencyMatrix[i][j] + (j == this.adjacencyMatrix[0].length - 1 ? "" : " "));
-            }
-            output.println();
-        }
-    }
 
-    public void outputAdjacencyLists(PrintStream output){
-        output.println(this.adjacencyList.length);
-        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
-            output.print(i + " ");
-            for (int j = 0; j < this.adjacencyMatrix[0].length; j++) {
-                if(this.adjacencyMatrix[i][j] == 0) continue;
-                output.print(j+ (j == this.adjacencyMatrix[0].length - 1 ? "" : " "));
-            }
-            output.println(0);
-        }
-    }
+
 
     public static void main(String[] args) {
         Scanner s = null;
