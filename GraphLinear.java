@@ -142,12 +142,12 @@ public abstract class GraphLinear {
      * couple de points.
      * @param chemins la matrice des chemins
      */
-    public static void printAnswer(int[][] chemins){
+    public static void printAnswer(PrintStream s, int[][] chemins){
         int n = chemins.length;
         for(int i = 0; i < n; i++){
             for(int j = 0; j < n; j++){
                 if(i != j && chemins[i][j] != -1){
-                    System.out.println("Plus court chemin de " + i + " vers " + j + ": (" + printPath(chemins, i, j) + ")");
+                    s.println("Plus court chemin de " + i + " vers " + j + ": (" + printPath(chemins, i, j) + ")");
                 }
             }
         }
@@ -194,8 +194,10 @@ public abstract class GraphLinear {
             }
         }
 
-        printAnswer(chemins);
-        //output les matrices dans des fichiers
+        g.pathsMatrix = chemins;
+        //=============
+        // output les matrices dans des fichiers
+        //=============
         try {
             PrintStream w = new PrintStream("fw_out/graph-011.paths");
             GraphLinear.printMatrix(w,chemins);
@@ -206,6 +208,13 @@ public abstract class GraphLinear {
         try {
             PrintStream w = new PrintStream("fw_out/graph-001.costs");
             GraphLinear.printMatrix(w,weightMatrixCopy);
+        } catch (FileNotFoundException e) {
+            System.out.println("not found");
+        }
+
+        try {
+            PrintStream w = new PrintStream("fw_out/all_paths.txt");
+            printAnswer(w, chemins);
         } catch (FileNotFoundException e) {
             System.out.println("not found");
         }

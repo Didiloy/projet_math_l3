@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class GraphLinearDirectedWeight extends GraphLinear {
     protected int[][] weightMatrix;
+    public int[][] pathsMatrix;
 
     public GraphLinearDirectedWeight(int n) {
         super(n);
