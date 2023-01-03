@@ -1,3 +1,5 @@
+import fr_departments.FR_AllDepartments;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -34,7 +36,9 @@ public class Main {
             dep = s.nextInt();
             if(!s.hasNextInt()) break;
             arr = s.nextInt();
-            System.out.println("Plus court chemin de " + dep + " vers " + arr + ": (" + GraphLinear.printPath(g.pathsMatrix, dep, arr) + ")");
+            System.out.print("Plus court chemin de " + dep + " vers " + arr + ": (");
+            GraphLinear.convertStrToArrayList(GraphLinear.printPath(g.pathsMatrix, dep, arr)).forEach(e -> System.out.print(FR_AllDepartments.getDepartment(e).getName() + " "));
+            System.out.println(")");
         } while (dep != 0 && arr != 0);
 
         s.close();

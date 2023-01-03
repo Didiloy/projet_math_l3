@@ -1,6 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public abstract class GraphLinear {
     protected byte[][] adjacencyMatrix;
@@ -135,6 +137,16 @@ public abstract class GraphLinear {
         }
 
         return s + " " + arr;
+    }
+
+    public static ArrayList<Integer> convertStrToArrayList(String s){
+        Scanner sc = new Scanner(s);
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        while (sc.hasNextInt()){
+            arrayList.add(sc.nextInt());
+        }
+        sc.close();
+        return arrayList;
     }
 
     /**
