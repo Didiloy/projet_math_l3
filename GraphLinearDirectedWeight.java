@@ -98,7 +98,7 @@ public class GraphLinearDirectedWeight extends GraphLinear {
         int order = input.nextInt();
         GraphLinearDirectedWeight g = new GraphLinearDirectedWeight(order);
 
-        int[][] tableau = new int[order][];
+//        int[][] tableau = new int[order][];
         for (int i = 0; i < g.order(); i++) {
             int[] tmp = new int[order];
             int compteur = 0;
@@ -119,22 +119,5 @@ public class GraphLinearDirectedWeight extends GraphLinear {
         g.computeAdjacencyMatrix();
         g.computeWeightMatrix();
         return g;
-    }
-
-    public static void main(String[] args) {
-        Scanner s = null;
-        try {
-            s = new Scanner(new File("graph-001.alists"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        GraphLinearDirectedWeight g = inputByAdjacencyListsWeight(s);
-        try {
-            PrintStream w = new PrintStream(new File("res.amatrix"));
-//            g.outputAdjacencyMatrix(w);
-            g.outputWeightMatrix(w);
-        } catch (FileNotFoundException e) {
-            System.out.println("not found");
-        }
     }
 }

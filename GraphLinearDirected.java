@@ -67,7 +67,7 @@ public class GraphLinearDirected extends GraphLinear{
         int order = input.nextInt();
         GraphLinearDirected g = new GraphLinearDirected(order);
 
-        int[][] tableau = new int[order][];
+//        int[][] tableau = new int[order][];
         for(int i = 0; i < g.order(); i++){
             int[] tmp = new int[order];
             int compteur = 0;

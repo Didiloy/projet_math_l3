@@ -1,11 +1,12 @@
 import java.io.PrintStream;
-import java.util.Scanner;
+import java.util.Arrays;
 
 public abstract class GraphLinear {
     protected byte[][] adjacencyMatrix;
     protected int[][] adjacencyList;
 
-    protected final int nbSommet;
+    protected int nbSommet;
+
     public GraphLinear(int n) {
         this.nbSommet = n;
         this.adjacencyMatrix = new byte[this.nbSommet][this.nbSommet];
@@ -77,7 +78,7 @@ public abstract class GraphLinear {
         return this.getOutDegree(vertex) + this.getInDegree(vertex);
     }
 
-    public void outputAdjacencyMatrix(PrintStream output){
+    public void outputAdjacencyMatrix(PrintStream output) {
         output.println(this.adjacencyMatrix.length);
         for (int i = 0; i < this.adjacencyMatrix.length; i++) {
             for (int j = 0; j < this.adjacencyMatrix[0].length; j++) {
@@ -87,16 +88,93 @@ public abstract class GraphLinear {
         }
     }
 
-    public void outputAdjacencyLists(PrintStream output){
+    public void outputAdjacencyLists(PrintStream output) {
         output.println(this.adjacencyList.length);
         for (int i = 0; i < this.adjacencyMatrix.length; i++) {
             output.print(i + " ");
             for (int j = 0; j < this.adjacencyMatrix[0].length; j++) {
-                if(this.adjacencyMatrix[i][j] == 0) continue;
-                output.print(j+ (j == this.adjacencyMatrix[0].length - 1 ? "" : " "));
+                if (this.adjacencyMatrix[i][j] == 0) continue;
+                output.print(j + (j == this.adjacencyMatrix[0].length - 1 ? "" : " "));
             }
             output.println(0);
         }
+    }
+
+    /**
+     * Fonction récursive qui permet d'afficher les chemins les plus courts d'un
+     * point à un autre.
+     * @param chemins
+     * @param dep
+     * @param arr
+     */
+    public static String printPath(int[][] chemins, int dep, int arr){
+        String s = String.valueOf(dep);
+        if (chemins[dep][arr] != dep){
+            s = printPath(chemins, dep, chemins[dep][arr]);
+        }
+
+        return s + " " + arr;
+    }
+
+    /**
+     * Fonction qui permet d'afficher tous les chemins les plus courts entre chaque
+     * couple de points.
+     * @param chemins la matrice des chemins
+     */
+    public static void printAnswer(int[][] chemins){
+        int n = chemins.length;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(i != j && chemins[i][j] != -1){
+                    System.out.println("Plus court chemin de " + i + " vers " + j + ": (" + printPath(chemins, i, j) + ")");
+                }
+            }
+        }
+    }
+    public static void floydWarshallAlgorithm(GraphLinearDirectedWeight g) {
+        int inf = Integer.MAX_VALUE;
+//        int[][] weightMatrixCopy = new int[][]{
+//                {0, inf, -2, inf},
+//                {4, 0, 3, inf},
+//                {inf, inf, 0, 2},
+//                {inf, -1, inf, 0}
+//        };
+
+        int[][] weightMatrixCopy = g.weightMatrix.clone();
+//        g.nbSommet = 4; //TODO effacer ça
+        int[][] chemins = new int[g.nbSommet][g.nbSommet];
+        for (int[] a : chemins) {
+            Arrays.fill(a, -1);
+        }
+
+        for (int dep = 0; dep < g.nbSommet; dep++) {
+            for (int arr = 0; arr < g.nbSommet; arr++) {
+                if (dep != arr && weightMatrixCopy[dep][arr] != inf) {
+                    chemins[dep][arr] = dep;
+                }
+            }
+        }
+
+        for (int inter = 0; inter < g.nbSommet; inter++) {
+            for (int dep = 0; dep < g.nbSommet; dep++) {
+                for (int arr = 0; arr < g.nbSommet; arr++) {
+                    if(weightMatrixCopy[dep][inter] == inf || weightMatrixCopy[inter][arr] == inf){
+                        continue;
+                    }
+                    if ((weightMatrixCopy[dep][inter] + weightMatrixCopy[inter][arr]) < weightMatrixCopy[dep][arr]) {
+                        weightMatrixCopy[dep][arr] = weightMatrixCopy[dep][inter] + weightMatrixCopy[inter][arr];
+                        chemins[dep][arr] = chemins[inter][arr];
+                    }
+                }
+                if (weightMatrixCopy[dep][dep] < 0) {
+                    System.out.println("cycle de poids négatif");
+                    return;
+                }
+            }
+        }
+
+        printAnswer(chemins);
+
     }
 
 }
