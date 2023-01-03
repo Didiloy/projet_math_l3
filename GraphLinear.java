@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Arrays;
 
@@ -78,11 +79,31 @@ public abstract class GraphLinear {
         return this.getOutDegree(vertex) + this.getInDegree(vertex);
     }
 
-    public void outputAdjacencyMatrix(PrintStream output) {
-        output.println(this.adjacencyMatrix.length);
-        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
-            for (int j = 0; j < this.adjacencyMatrix[0].length; j++) {
-                output.print(this.adjacencyMatrix[i][j] + (j == this.adjacencyMatrix[0].length - 1 ? "" : " "));
+//    public void outputAdjacencyMatrix(PrintStream output) {
+//        output.println(this.adjacencyMatrix.length);
+//        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
+//            for (int j = 0; j < this.adjacencyMatrix[0].length; j++) {
+//                output.print(this.adjacencyMatrix[i][j] + (j == this.adjacencyMatrix[0].length - 1 ? "" : " "));
+//            }
+//            output.println();
+//        }
+//    }
+
+    public static void printMatrix(PrintStream output, int[][] matrix) {
+        output.println(matrix.length);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                output.print(matrix[i][j] + (j == matrix[0].length - 1 ? "" : " "));
+            }
+            output.println();
+        }
+    }
+
+    public static void printMatrix(PrintStream output, byte[][] matrix) {
+        output.println(matrix.length);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                output.print(matrix[i][j] + (j == matrix[0].length - 1 ? "" : " "));
             }
             output.println();
         }
@@ -174,6 +195,20 @@ public abstract class GraphLinear {
         }
 
         printAnswer(chemins);
+        //output les matrices dans des fichiers
+        try {
+            PrintStream w = new PrintStream("fw_out/graph-011.paths");
+            GraphLinear.printMatrix(w,chemins);
+        } catch (FileNotFoundException e) {
+            System.out.println("not found");
+        }
+
+        try {
+            PrintStream w = new PrintStream("fw_out/graph-001.costs");
+            GraphLinear.printMatrix(w,weightMatrixCopy);
+        } catch (FileNotFoundException e) {
+            System.out.println("not found");
+        }
 
     }
 

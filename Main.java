@@ -6,15 +6,15 @@ public class Main {
     public static void main(String[] args) {
         Scanner s;
         try {
-            s = new Scanner(new File("graph-001.alists"));
+            s = new Scanner(new File("res/graph-001.alists"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         GraphLinearDirectedWeight g = GraphLinearDirectedWeight.inputByAdjacencyListsWeight(s);
         try {
-            PrintStream w = new PrintStream(new File("res.amatrix"));
+            PrintStream w = new PrintStream("fw_out/res.amatrix");
 //            g.outputAdjacencyMatrix(w);
-            g.outputWeightMatrix(w);
+            GraphLinear.printMatrix(w, g.weightMatrix);
         } catch (FileNotFoundException e) {
             System.out.println("not found");
         }

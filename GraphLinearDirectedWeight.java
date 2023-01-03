@@ -48,15 +48,6 @@ public class GraphLinearDirectedWeight extends GraphLinear {
         }
     }
 
-    public void outputWeightMatrix(PrintStream output) {
-        output.println(this.weightMatrix.length);
-        for (int i = 0; i < this.weightMatrix.length; i++) {
-            for (int j = 0; j < this.weightMatrix[0].length; j++) {
-                output.print(this.weightMatrix[i][j] + (j == this.weightMatrix[0].length - 1 ? "" : " "));
-            }
-            output.println();
-        }
-    }
 
     public void computeWeightMatrix() {
         int[][] tab = new int[this.nbSommet][this.nbSommet];
@@ -65,7 +56,7 @@ public class GraphLinearDirectedWeight extends GraphLinear {
         }
 
         try {
-            Scanner s = new Scanner(new File("fr-dept-distances.data"));
+            Scanner s = new Scanner(new File("res/fr-dept-distances.data"));
             while (s.hasNextInt()) {
                 int x = s.nextInt();
                 int y = s.nextInt();
@@ -98,7 +89,6 @@ public class GraphLinearDirectedWeight extends GraphLinear {
         int order = input.nextInt();
         GraphLinearDirectedWeight g = new GraphLinearDirectedWeight(order);
 
-//        int[][] tableau = new int[order][];
         for (int i = 0; i < g.order(); i++) {
             int[] tmp = new int[order];
             int compteur = 0;
@@ -111,7 +101,6 @@ public class GraphLinearDirectedWeight extends GraphLinear {
                 compteur++;
             }
             g.adjacencyList[i] = new int[compteur];
-//            System.arraycopy(tmp, 0, tableau[i], 0, tableau[i].length);
             for (int j = 0; j < g.adjacencyList[i].length; j++) {
                 g.adjacencyList[i][j] = tmp[j];
             }

@@ -2,7 +2,6 @@ import fr_departments.FR_Department;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -96,7 +95,7 @@ public class GraphLinearDirected extends GraphLinear{
     public static void main(String[] args) {
         Scanner s = null;
         try {
-            s = new Scanner(new File("dep.command"));
+            s = new Scanner(new File("res/dep.command"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
