@@ -116,7 +116,7 @@ public abstract class GraphLinear {
     }
 
     /**
-     * Fonction récursive qui permet d'afficher les chemins les plus courts d'un
+     * Fonction qui permet d'afficher les chemins les plus courts d'un
      * point à un autre.
      * @param chemins
      * @param dep
@@ -163,15 +163,6 @@ public abstract class GraphLinear {
     public static void floydWarshallAlgorithm(GraphLinearDirectedWeight g) {
         int inf = Integer.MAX_VALUE;
         int[][] weightMatrixCopy = g.weightMatrix.clone();
-//        //TODO test
-//        g.nbSommet = 5; //TODO supprimer ça
-//        int[][] weightMatrixCopy = new int[][]{
-//                {0, 3, 8, inf, -4},
-//                {inf, 0, inf, 1, 7},
-//                {inf, 4, 0, inf, inf},
-//                {2, inf, -5, 0, inf},
-//                { inf, inf, inf, 6, 0}
-//        };
 
         int[][] chemins = new int[g.nbSommet][g.nbSommet];
         for (int[] a : chemins) {
@@ -189,7 +180,6 @@ public abstract class GraphLinear {
         for (int inter = 0; inter < g.nbSommet; inter++) {
             for (int dep = 0; dep < g.nbSommet; dep++) {
                 for (int arr = 0; arr < g.nbSommet; arr++) {
-//                    if(dep == arr) continue;
                     if(weightMatrixCopy[dep][inter] == inf || weightMatrixCopy[inter][arr] == inf){
                         continue;
                     }
