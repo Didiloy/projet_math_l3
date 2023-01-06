@@ -39,7 +39,7 @@ public class Main {
             if(!s.hasNextInt()) break;
             arr = s.nextInt();
             System.out.print("Plus court chemin de " + dep + " vers " + arr + ": (");
-            GraphLinear.convertStrToArrayList(GraphLinear.printPath(g.pathsMatrix, dep, arr)).forEach(e -> System.out.print(FR_AllDepartments.getDepartment(e).getName() + " "));
+            GraphLinear.convertStrToArrayList(GraphLinear.printPath(g.pathsMatrix, dep-1, arr-1)).forEach(e -> System.out.print(FR_AllDepartments.getDepartment(e).getName() + " "));
             System.out.println(")");
         } while (dep != 0 && arr != 0);
 

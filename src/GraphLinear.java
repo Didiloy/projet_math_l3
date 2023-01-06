@@ -123,12 +123,15 @@ public abstract class GraphLinear {
      * @param arr
      */
     public static String printPath(int[][] chemins, int dep, int arr){
-        String s = String.valueOf(dep);
-        if (chemins[dep][arr] != dep){
-            s = printPath(chemins, dep, chemins[dep][arr]);
-        }
+        String s = "";
 
-        return s + " " + arr;
+        while(chemins[arr][dep] != (arr + 1)){
+            s = s + " " + (dep + 1);
+            dep = chemins[arr][dep] - 1;
+        }
+        s = s + " " + (dep + 1);
+
+        return s + " " + (arr + 1);
     }
 
     public static ArrayList<Integer> convertStrToArrayList(String s){
@@ -151,7 +154,7 @@ public abstract class GraphLinear {
         for(int i = 0; i < n; i++){
             for(int j = 0; j < n; j++){
                 if(i != j && chemins[i][j] != -1){
-                    s.println("Plus court chemin de " + i + " vers " + j + ": (" + printPath(chemins, i, j) + ")");
+                    s.println("Plus court chemin de " + (i + 1) + " vers " + ( j + 1) + ": (" + printPath(chemins, i, j) + ")");
                 }
             }
         }
@@ -160,6 +163,16 @@ public abstract class GraphLinear {
     public static void floydWarshallAlgorithm(GraphLinearDirectedWeight g) {
         int inf = Integer.MAX_VALUE;
         int[][] weightMatrixCopy = g.weightMatrix.clone();
+//        //TODO test
+//        g.nbSommet = 5; //TODO supprimer ça
+//        int[][] weightMatrixCopy = new int[][]{
+//                {0, 3, 8, inf, -4},
+//                {inf, 0, inf, 1, 7},
+//                {inf, 4, 0, inf, inf},
+//                {2, inf, -5, 0, inf},
+//                { inf, inf, inf, 6, 0}
+//        };
+
         int[][] chemins = new int[g.nbSommet][g.nbSommet];
         for (int[] a : chemins) {
             Arrays.fill(a, -1);
@@ -168,7 +181,7 @@ public abstract class GraphLinear {
         for (int dep = 0; dep < g.nbSommet; dep++) {
             for (int arr = 0; arr < g.nbSommet; arr++) {
                 if (dep != arr && weightMatrixCopy[dep][arr] != inf) {
-                    chemins[dep][arr] = dep;
+                    chemins[dep][arr] = dep + 1; //ajouter +1 parce que les cases des tableaux commencent a 0
                 }
             }
         }
@@ -176,6 +189,7 @@ public abstract class GraphLinear {
         for (int inter = 0; inter < g.nbSommet; inter++) {
             for (int dep = 0; dep < g.nbSommet; dep++) {
                 for (int arr = 0; arr < g.nbSommet; arr++) {
+//                    if(dep == arr) continue;
                     if(weightMatrixCopy[dep][inter] == inf || weightMatrixCopy[inter][arr] == inf){
                         continue;
                     }
