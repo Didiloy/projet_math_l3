@@ -1,6 +1,7 @@
+package src;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package fr_departments;
+package src.fr_departments;
 public class FR_Department {
   private int number ;
   private String code ;

@@ -1,11 +1,13 @@
-import fr_departments.FR_Department;
+package src;
+
+import src.fr_departments.FR_Department;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static fr_departments.FR_AllDepartments.getDepartment;
+import static src.fr_departments.FR_AllDepartments.getDepartment;
 
 public class GraphLinearDirected extends GraphLinear{
     public GraphLinearDirected(int n) {
@@ -106,13 +108,5 @@ public class GraphLinearDirected extends GraphLinear{
             System.out.println("[ " + dep.getCode() + " " + dep.getName() + " ]");
             System.out.println("\t");
         }
-
-//        GraphLinearDirected g = inputByAdjacencyLists(s);
-//        try{
-//            PrintStream w = new PrintStream(new File("res.amatrix"));
-//            g.outputAdjacencyMatrix(w);
-//        }catch(FileNotFoundException e){
-//            System.out.println("not found");
-//        }
     }
 }

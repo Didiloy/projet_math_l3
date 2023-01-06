@@ -1,4 +1,6 @@
-import fr_departments.FR_AllDepartments;
+package src;
+
+import src.fr_departments.FR_AllDepartments;
 
 import java.io.File;
 import java.io.FileNotFoundException;

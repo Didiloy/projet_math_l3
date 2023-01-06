@@ -1,3 +1,5 @@
+package src;
+
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -81,16 +83,6 @@ public abstract class GraphLinear {
         return this.getOutDegree(vertex) + this.getInDegree(vertex);
     }
 
-//    public void outputAdjacencyMatrix(PrintStream output) {
-//        output.println(this.adjacencyMatrix.length);
-//        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
-//            for (int j = 0; j < this.adjacencyMatrix[0].length; j++) {
-//                output.print(this.adjacencyMatrix[i][j] + (j == this.adjacencyMatrix[0].length - 1 ? "" : " "));
-//            }
-//            output.println();
-//        }
-//    }
-
     public static void printMatrix(PrintStream output, int[][] matrix) {
         output.println(matrix.length);
         for (int i = 0; i < matrix.length; i++) {
@@ -164,17 +156,10 @@ public abstract class GraphLinear {
             }
         }
     }
+
     public static void floydWarshallAlgorithm(GraphLinearDirectedWeight g) {
         int inf = Integer.MAX_VALUE;
-//        int[][] weightMatrixCopy = new int[][]{
-//                {0, inf, -2, inf},
-//                {4, 0, 3, inf},
-//                {inf, inf, 0, 2},
-//                {inf, -1, inf, 0}
-//        };
-
         int[][] weightMatrixCopy = g.weightMatrix.clone();
-//        g.nbSommet = 4; //TODO effacer ça
         int[][] chemins = new int[g.nbSommet][g.nbSommet];
         for (int[] a : chemins) {
             Arrays.fill(a, -1);
@@ -205,8 +190,8 @@ public abstract class GraphLinear {
                 }
             }
         }
-
         g.pathsMatrix = chemins;
+
         //=============
         // output les matrices dans des fichiers
         //=============
